@@ -1,4 +1,4 @@
-import { CatmullRomCurve3, Vector3 } from "three";
+import { ArrowHelper, CatmullRomCurve3, Color, Group, TubeGeometry, Vector3 } from "three";
 
 import * as tf from "@tensorflow/tfjs-core";
 import "@tensorflow/tfjs-backend-webgl";
@@ -16,6 +16,23 @@ class TensorParamatricCurve {
   //param: every element in time_span must between 0 and 1
   //return: tensor with shape [3,n]
   getDerivativesTensor(time_span) {}
+
+  getPointsDerivatives(time_span) {
+    return tf.tidy(() => {
+      const points = this.getPointsTensor(time_span)
+      const derivatives = this.getDerivativesTensor(time_span)
+
+      return {points, derivatives}
+    })
+  }
+
+  updateTube() {
+    this.tube = new TubeGeometry(this.getSpline(100), 500, 0.1, 8)
+  }
+
+  getDirectionalArrows(percision = 50) {
+    
+  }
 
   getSpline(percision = 1000) {
     const time_span = tf.linspace(0, 1, percision);

@@ -4,38 +4,37 @@ import * as tf from "@tensorflow/tfjs-core";
 import "@tensorflow/tfjs-backend-webgl";
 import "@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops";
 
-const tau = tf.scalar(2 * Math.PI);
-
 class Solenoid extends TensorParamatricCurve {
   constructor(radius, period, length) {
     super();
 
-    this.radius = tf.scalar(radius);
-    this.period = tf.scalar(period);
-    this.length = tf.scalar(length);
+    this.radius = radius
+    this.period = period
+    this.length = length
   }
 
   getPointsTensor(t) {
-    const x = this.radius.mul(tf.cos(tau.mul(this.period).mul(t)));
-    const y = this.radius.mul(tf.sin(tau.mul(this.period).mul(t)));
-    const z = this.length.mul(t);
+    return tf.tidy(() => {
+      const x = tf.sin(t.mul(2*Math.PI*this.period)).mul(this.radius)
+      const y = tf.cos(t.mul(2*Math.PI*this.period)).mul(this.radius)
+      const z = t.mul(this.length);
 
-    return tf.stack([x, y, z], 0);
+      return tf.stack([x, y, z], 0);
+    })
   }
 
   getDerivativesTensor(t) {
-    const x = this.radius
-      .mul(tf.sin(tau.mul(this.period).mul(t)))
-      .mul(tau)
-      .mul(this.period)
-      .mul(-1);
-    const y = this.radius
-      .mul(tf.cos(tau.mul(this.period).mul(t)))
-      .mul(tau)
-      .mul(this.period);
-    const z = tf.fill([1, t.shape[0]], 1).mul(this.length);
+    return tf.tidy(() => {
+      const x = tf.sin(t.mul(2*Math.PI*this.period))
+      const y = tf.cos(t.mul(2*Math.PI*this.period))
+      const z = tf.fill([t.size,1], 1).flatten().mul(this.length);
 
-    return tf.stack([x, y, z.flatten()], 0);
+      x.print(true)
+      y.print(true)
+      z.print(true)
+
+      return tf.stack([x, y, z], 0);
+    })
   }
 }
 

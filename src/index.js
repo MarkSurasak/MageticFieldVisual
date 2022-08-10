@@ -68,6 +68,9 @@ function initialScene() {
   scene.add(light);
   scene.add(grid, axis);
   scene.add(curves_meshes[0]);
+  curves[0].getDirectionalArrows(300).then((result) => {
+    scene.add(result)
+  })
 }
 
 function animate() {
