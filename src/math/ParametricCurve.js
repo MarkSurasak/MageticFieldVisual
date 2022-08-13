@@ -31,11 +31,15 @@ class ParametricCurve Curve{
 
   getPoints(division = 5) {
     const time_span = tf.linspace(0,1, division)
-    return utils.asVector(this.get_point_tensor(time_span))
+    return utils.asVector3(this.get_point_tensor(time_span))
   }
 
   getTangent(t, optionalTaget = new Vector3()) {
     return optionaoTager.copy(this.getDerivative(t).normalize())
+  }
+
+  asCatmullRomCurve3(division = 5) {
+    return new CatmullRomCurve3(this.gerPoints(division))
   }
 }
 
