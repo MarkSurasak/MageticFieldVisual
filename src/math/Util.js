@@ -20,7 +20,7 @@ export const meshGrid3 = (x_span, y_span, z_span) => {
 }
 
 
-export const gennerateDataCube = (minPoint, maxPoint, density) => {
+export const gennerateDataChuck = (minPoint, maxPoint, density) => {
     const x_span = tf.linspace(minPositions.x, maxPosition.x, density);
     const y_span = tf.linspace(minPositions.y, maxPosition.y, density);
     const z_span = tf.linspace(minPositions.z, maxPosition.z, density);
