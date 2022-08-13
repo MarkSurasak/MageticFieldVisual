@@ -12,10 +12,11 @@ class Particle extends Point {
         this.clock = clock
         this.points_tensor = initial_point
         this.vectorfield = vectorfield
+        this.integateMedthod = Util.euler
     }
 
     update() {
-        this.point_tensor = Util.euler_medthod(this.vectorfield, this.clock.getElapsedTime(), this.points_tensor, this.clock.getDeltaTime())
+        this.point_tensor = this.integateMedthod(this.vectorfield, this.clock.getElapsedTime(), this.points_tensor, this.clock.getDeltaTime())
     }
 }
 
