@@ -17,34 +17,13 @@ class TensorParamatricCurve {
   //return: tensor with shape [3,n]
   getDerivativesTensor(time_span) {}
 
-  getPointsDerivatives(time_span) {
+  getPointsAndDerivatives(time_span) {
     return tf.tidy(() => {
       const points = this.getPointsTensor(time_span)
       const derivatives = this.getDerivativesTensor(time_span)
 
       return {points, derivatives}
     })
-  }
-
-  updateTube() {
-    this.tube = new TubeGeometry(this.getSpline(100), 500, 0.1, 8)
-  }
-
-  getDirectionalArrows(percision = 50) {
-    
-  }
-
-  getSpline(percision = 1000) {
-    const time_span = tf.linspace(0, 1, percision);
-    const points_tenssor = this.getPointsTensor(time_span);
-    const points = points_tenssor
-      .transpose()
-      .arraySync()
-      .map((item) => {
-        return new Vector3(item[0], item[1], item[2]);
-      });
-
-    return new CatmullRomCurve3(points);
   }
 }
 
