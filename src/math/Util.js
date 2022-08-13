@@ -30,7 +30,7 @@ export const gennerateDataChuck = (minPoint, maxPoint, density) => {
     return tf.stack([xx.flatten(), yy.flatten(), zz.flatten()], 0);
  }
 
-export const runge_kutta_4 = => {
+export const runge_kutta_4 = (func, time, current_state, delta_time = 0.01) => {
   const f1 = func(time                 , current_state);
   const f2 = func(time + delta_time / 2, current_state.add(f1.mul(delta_time / 2)));
   const f3 = func(time + delta_time / 2, current_state.add(f2.mul(delta_time / 2)));
