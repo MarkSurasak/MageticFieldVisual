@@ -25,6 +25,14 @@ class TensorParamatricCurve {
       return {points, derivatives}
     })
   }
+
+  static asVectors3(tensor) {
+      return new Promise((reslove, reject) => {}
+          const vectors = tensor.transpose().arraySync().map(item => return new Vector3(item[0], item[1], item[2]))
+          
+          resolve (vectors)
+      )
+  }
 }
 
 export { TensorParamatricCurve };
