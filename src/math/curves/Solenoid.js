@@ -1,4 +1,4 @@
-import { TensorParamatricCurve } from "../TensorParamaticCurve";
+import { TensorCurve } from "../TensorCurve";
 
 import * as tf from "@tensorflow/tfjs-core";
 import "@tensorflow/tfjs-backend-webgl";
