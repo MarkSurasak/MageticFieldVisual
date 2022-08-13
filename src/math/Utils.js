@@ -7,6 +7,22 @@ import { Vector3 } from 'three'
 export const asVector3  = tensor => return tensor.transpose().arraySync().map(item => return new Vector3(item[0], item[1], item[2]))
 export const asVertices = tensor => return tensor.transpose().flatten().arraySync()
 
+export const big_cross = (a, b) => {
+  const ax = a.gather(0, 0);
+  const ay = a.gather(1, 0);
+  const az = a.gather(2, 0);
+
+  const bx = b.gather(0, 0);
+  const by = b.gather(1, 0);
+  const bz = b.gather(2, 0);
+
+  const x = ay.mul(bz).sub(az.mul(by));
+  const y = az.mul(bx).sub(ax.mul(bz));
+  const z = ax.mul(by).sub(ay.mul(bx));
+
+  return tf.stack([x, y, z]);
+};
+
 export const meshGrid3 = (x_span, y_span, z_span) => {
   const x_len = x_span.size;
   const y_len = y_span.size;
