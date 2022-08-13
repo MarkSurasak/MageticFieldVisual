@@ -4,7 +4,7 @@ import * as tf from "@tensorflow/tfjs-core";
 import "@tensorflow/tfjs-backend-webgl";
 import "@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops";
 
-class TensorParamatricCurve {
+class TensorCurve {
   //return a tensor of derivatives
   //param: time_span type = tensor with shape [n,1]
   //param: every element in time_span must between 0 and 1
@@ -27,4 +27,4 @@ class TensorParamatricCurve {
   }
 }
 
-export { TensorParamatricCurve };
+export { TensorCurve };
