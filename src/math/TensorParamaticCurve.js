@@ -25,10 +25,6 @@ class TensorParamatricCurve {
       return {points, derivatives}
     })
   }
-
-  static asVectors3(tensor) {
-      return tensor.transpose().arraySync().map(item => return new Vector3(item[0], item[1], item[2]))
-  }
 }
 
 export { TensorParamatricCurve };
