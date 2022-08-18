@@ -1,0 +1,44 @@
+import { max, min } from 'Math'
+
+
+class RandomPointsBoxGennerator {
+
+  Constructor (box) {
+    this.setBorder(box)
+
+    this.lengths = this.max.sub(this.min)
+    this.matrix = new Matrix3(
+      [this.lengths.x,0,0,
+       0,this.lengths.y,0,
+       0,0,this.lengths.z])
+  }
+
+  addRandomPoint(optionalTaget = new Vector3()) {
+    return optionalTaget.random().applyMatrix(this.matrix).add(this.min)
+  }
+
+  addRandomPoints(count = 10) {
+    const points = []
+
+    for(let i = 0; i<count; i++) {
+      points.push(this.addRandomPoint())
+    }
+
+    return points
+  }
+
+  setBorder(box) {
+    this.box = box;
+
+    const minX = Math.round(min(this.box.min.x, this.box.max.x));
+    const minY = Math.round(min(this.box.min.y, this.box.max.y));
+    const minZ = Math.round(min(this.box.min.z, this.box.max.z));
+
+    const maxX = Math.round(max(this.box.min.x, this.box.max.x));
+    const maxY = Math.round(max(this.box.min.y, this.box.max.y));
+    const maxZ = Math.round(max(this.box.min.z, this.box.max.z));
+
+    this.min = new Vector3(minX, minY, minZ);
+    this.max = new Vector3(maxX, maxY, maxZ);
+  }
+}
